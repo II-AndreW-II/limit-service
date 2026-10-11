@@ -97,8 +97,10 @@ export DB_HOST=localhost DB_USER=limits DB_PASSWORD=limits DB_NAME=limits
 
 ## AI в проекте
 
-### Каким AI пользовался
-- Grok (xAI) — генерация каркаса, сущностей, сервисов, тестов, Dockerfile, SKILL.md.
+| Инструмент | Зачем |
+|------------|--------|
+| **Cursor** | Основная IDE: доработка сервисов, рефакторинг на интерфейсы/`impl`, Redis, virtual threads, MCP endpoints, правки тестов, отладка Docker, правки README |
+| **Grok (xAI)** | Черновик каркаса: сущности, Flyway, REST API, e2e-тест, Dockerfile, SKILL.md, AGENTS.md |
 
 ### Что написано вручную / проверено
 - Логика `limit_exceeded` и границы месяца (Asia/Almaty).
@@ -136,24 +138,3 @@ export DB_HOST=localhost DB_USER=limits DB_PASSWORD=limits DB_NAME=limits
 - **Virtual threads** — параллельная конвертация (`toUsdParallel`) и prefetch курсов.
 - **CI** — `.github/workflows/ci.yml` (JDK 21 + `mvn verify`).
 - **MCP tools** — `GET /mcp/tools`, `POST /mcp/tools/get_limits`, `POST /mcp/tools/get_exceeded_transactions` (поверх клиентского API).
-
-## Структура репозитория
-
-```
-src/main/java/com/bank/limitservice/
-  client/          # ExchangeRateClient
-  config/          # Clock, properties
-  controller/      # Transaction + Client
-  dto/ mapper/
-  entity/
-  exception/
-  repository/
-  service/
-src/main/resources/db/migration/
-src/test/...
-.agents/skills/
-.cursor/mcp.json
-Dockerfile
-docker-compose.yml
-AGENTS.md
-```
