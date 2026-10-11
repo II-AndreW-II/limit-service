@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://limits:limits@localhost:5432/limits"
+      ],
+      "env": {}
+    }
+  }
+}
