@@ -164,9 +164,9 @@ class LimitLogicTest {
 
         List<TransactionResponse> exceeded = transactionService.getExceeded(account);
         assertThat(exceeded).hasSize(2);
-        assertThat(exceeded.get(0).datetime().getDayOfMonth()).isEqualTo(3);
+        assertThat(exceeded.get(0).datetime().atZoneSameInstant(AppConfig.APP_ZONE).getDayOfMonth()).isEqualTo(3);
         assertThat(exceeded.get(0).limitSum()).isEqualByComparingTo("1000.00");
-        assertThat(exceeded.get(1).datetime().getDayOfMonth()).isEqualTo(13);
+        assertThat(exceeded.get(1).datetime().atZoneSameInstant(AppConfig.APP_ZONE).getDayOfMonth()).isEqualTo(13);
         assertThat(exceeded.get(1).limitSum()).isEqualByComparingTo("2000.00");
     }
 

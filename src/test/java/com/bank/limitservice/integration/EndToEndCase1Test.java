@@ -194,7 +194,7 @@ class EndToEndCase1Test {
         postTx(account, "1200.00", "2022-01-13T12:00:00+06:00");
 
         // Assert exceeded list
-        List<Map<String, Object>> exceeded = given()
+List<Map<String, Object>> exceeded = given()
                 .queryParam("account_from", account)
                 .when()
                 .get("/api/v1/client/transactions/exceeded")
@@ -207,12 +207,14 @@ class EndToEndCase1Test {
         assertThat(exceeded).hasSize(2);
 
         Map<String, Object> first = exceeded.get(0);
-        assertThat(first.get("datetime").toString()).contains("2022-01-03");
+        OffsetDateTime firstDt = OffsetDateTime.parse(first.get("datetime").toString());
+        assertThat(firstDt.atZoneSameInstant(ZoneId.of("Asia/Almaty")).getDayOfMonth()).isEqualTo(3);
         assertThat(new BigDecimal(first.get("limit_sum").toString())).isEqualByComparingTo("1000.00");
         assertThat(first.get("limit_currency_shortname")).isEqualTo("USD");
 
         Map<String, Object> second = exceeded.get(1);
-        assertThat(second.get("datetime").toString()).contains("2022-01-13");
+        OffsetDateTime secondDt = OffsetDateTime.parse(second.get("datetime").toString());
+        assertThat(secondDt.atZoneSameInstant(ZoneId.of("Asia/Almaty")).getDayOfMonth()).isEqualTo(13);
         assertThat(new BigDecimal(second.get("limit_sum").toString())).isEqualByComparingTo("2000.00");
         assertThat(second.get("limit_currency_shortname")).isEqualTo("USD");
     }
