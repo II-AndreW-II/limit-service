@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+app:
+  redis:
+    enabled: false
+  exchange-rate:
+    provider: twelvedata
+    base-url: http://localhost:0
+    api-key: test
+    connect-timeout-ms: 1000
+    read-timeout-ms: 1000
+    max-retries: 1
+
+logging:
+  level:
+    com.bank.limitservice: DEBUG
